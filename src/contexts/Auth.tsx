@@ -1,13 +1,8 @@
 import { signIn } from 'api/auth.api';
+import { getProfile } from 'api/user.api';
 import config from 'config';
 import useRefresh from 'hooks/useRefresh';
-import {
-  createContext,
-  useCallback,
-  useEffect,
-  useMemo,
-  useReducer
-} from 'react';
+import { createContext, useCallback, useEffect, useMemo, useReducer } from 'react';
 
 import type { FCC } from 'types/react';
 import type { User } from 'types/user';
@@ -22,6 +17,7 @@ interface AuthState {
 interface AuthContextValue extends AuthState {
   login: Login;
   logout: VoidFunction;
+  updateUserProfile: (user: User) => void;
 }
 
 type Login = (payload: Parameters<typeof signIn>[0]) => Promise<void>;
@@ -79,19 +75,19 @@ const AuthProvider: FCC = (props) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
-    const user = LocalStorage.get('user');
     const accessToken = LocalStorage.get('accessToken');
 
-    if (user && accessToken) {
-      dispatch({ type: 'AUTHORIZED', payload: { user: user } });
-      // getUser()
-      //   .then((response) => {
-      //     const { data } = response;
-      //     dispatch({ type: 'AUTHORIZED', payload: { user: data } });
-      //   })
-      //   .catch(() => {
-      //     dispatch({ type: 'UNAUTHORIZED' });
-      //   });
+    if (accessToken) {
+      // dispatch({ type: 'AUTHORIZED', payload: { user: user } });
+      getProfile()
+        .then((response) => {
+          const { data } = response;
+          console.log(data);
+          dispatch({ type: 'AUTHORIZED', payload: { user: data } });
+        })
+        .catch(() => {
+          dispatch({ type: 'UNAUTHORIZED' });
+        });
     } else {
       dispatch({ type: 'UNAUTHORIZED' });
     }
@@ -118,18 +114,22 @@ const AuthProvider: FCC = (props) => {
     dispatch({ type: 'LOGOUT' });
   }, []);
 
+  const updateUserProfile = useCallback((user: User) => {
+    LocalStorage.set('user', user);
+    dispatch({ type: 'AUTHORIZED', payload: { user } });
+  }, []);
+
   const context = useMemo(
     () => ({
       ...state,
       login,
-      logout
+      logout,
+      updateUserProfile
     }),
-    [state, login, logout]
+    [state, login, logout, updateUserProfile]
   );
 
-  return (
-    <AuthContext.Provider value={context}>{children}</AuthContext.Provider>
-  );
+  return <AuthContext.Provider value={context}>{children}</AuthContext.Provider>;
 };
 
 export { AuthProvider };

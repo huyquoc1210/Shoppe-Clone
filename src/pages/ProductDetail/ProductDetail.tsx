@@ -18,6 +18,7 @@ const ProductDetail = () => {
   const [buyCount, setBuyCount] = useState(1);
   const queryClient = useQueryClient();
   const { nameId } = useParams();
+
   const id = getIdFromNameId(nameId as string);
   const [indexImage, setIndexImage] = useState([0, 5]);
   const [activeImage, setActiveImage] = useState('');

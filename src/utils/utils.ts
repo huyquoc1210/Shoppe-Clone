@@ -1,4 +1,6 @@
 import { AxiosError, HttpStatusCode, isAxiosError } from 'axios';
+import config from 'config';
+import iconAvatar from 'assets/images/user.svg';
 
 export const axiosError = (error: unknown) => isAxiosError(error);
 
@@ -20,11 +22,15 @@ export const formatNumberToSocialStyle = (value: number) => {
     .toLowerCase();
 };
 
-export const rateSale = (original: number, sale: number) => Math.round(((original - sale) / original) * 100) + '%';
+export const rateSale = (original: number, sale: number) =>
+  Math.round(((original - sale) / original) * 100) + '%';
 
 export const removeSpecialCharacter = (str: string) =>
   // eslint-disable-next-line no-useless-escape
-  str.replace(/!|@|%|\^|\*|\(|\)|\+|\=|\<|\>|\?|\/|,|\.|\:|\;|\'|\"|\&|\#|\[|\]|~|\$|_|`|-|{|}|\||\\/g, '');
+  str.replace(
+    /!|@|%|\^|\*|\(|\)|\+|\=|\<|\>|\?|\/|,|\.|\:|\;|\'|\"|\&|\#|\[|\]|~|\$|_|`|-|{|}|\||\\/g,
+    ''
+  );
 
 export const generateNameId = ({ name, id }: { name: string; id: string }) => {
   return removeSpecialCharacter(name).replace(/\s/g, '-') + `-i.${id}`;
@@ -34,3 +40,6 @@ export const getIdFromNameId = (nameId: string) => {
   const arr = nameId.split('-i.');
   return arr[arr.length - 1];
 };
+
+export const getAvatarUrl = (avatarName?: string) =>
+  avatarName ? `${config.BASE_URL}images/${avatarName}` : iconAvatar;

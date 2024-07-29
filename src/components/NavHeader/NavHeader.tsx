@@ -4,6 +4,7 @@ import Paths from 'constants/paths';
 import { purchasesStatus } from 'constants/purchaseStatus';
 import useAuth from 'hooks/useAuth';
 import { Link } from 'react-router-dom';
+import { getAvatarUrl } from 'utils/utils';
 
 const NavHeader = () => {
   const queryClient = useQueryClient();
@@ -24,12 +25,8 @@ const NavHeader = () => {
         renderPopover={
           <div className='relative rounded-sm border border-gray-200 bg-white shadow-md'>
             <div className='flex flex-col py-2 pr-28 pl-3'>
-              <button className='py-2 px-3 text-left hover:text-orange'>
-                Tiếng Việt
-              </button>
-              <button className='mt-2 py-2 px-3 text-left hover:text-orange'>
-                English
-              </button>
+              <button className='py-2 px-3 text-left hover:text-orange'>Tiếng Việt</button>
+              <button className='mt-2 py-2 px-3 text-left hover:text-orange'>English</button>
             </div>
           </div>
         }
@@ -57,11 +54,7 @@ const NavHeader = () => {
           stroke='currentColor'
           className='size-6'
         >
-          <path
-            strokeLinecap='round'
-            strokeLinejoin='round'
-            d='m19.5 8.25-7.5 7.5-7.5-7.5'
-          />
+          <path strokeLinecap='round' strokeLinejoin='round' d='m19.5 8.25-7.5 7.5-7.5-7.5' />
         </svg>
       </Popover>
 
@@ -91,20 +84,13 @@ const NavHeader = () => {
             </div>
           }
         >
-          <svg
-            xmlns='http://www.w3.org/2000/svg'
-            fill='none'
-            viewBox='0 0 24 24'
-            strokeWidth={1.5}
-            stroke='currentColor'
-            className='size-5'
-          >
-            <path
-              strokeLinecap='round'
-              strokeLinejoin='round'
-              d='M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z'
+          <div className='mr-2 h-6 w-6 flex-shrink-0'>
+            <img
+              src={getAvatarUrl(user?.avatar)}
+              alt='avatar'
+              className='h-full w-full rounded-full object-cover'
             />
-          </svg>
+          </div>
           <span>{user?.email}</span>
         </Popover>
       )}

@@ -75,23 +75,19 @@ const Login = () => {
         <div className='container'>
           <div className='grid grid-cols-1 py-12 lg:grid-cols-5 lg:py-32 lg:pr-10'>
             <div className='lg:col-span-2 lg:col-start-4'>
-              <Form
-                form={form}
-                onSubmit={onSubmit}
-                className='rounded bg-white p-10 shadow-sm'
-              >
+              <Form form={form} onSubmit={onSubmit} className='rounded bg-white p-10 shadow-sm'>
                 <div className='text-2xl'>Đăng Nhập</div>
                 <FormInput<FormData>
+                  className='mt-6'
                   name='email'
                   type='email'
                   placeholder='Email'
-                  className='p-3 w-full outline-none border border-gray-300 focus:border-gray-500 rounded-sm focus:shadow-sm'
                 />
                 <FormInput<FormData>
+                  className='mt-6'
                   name='password'
                   type='password'
                   placeholder='Password'
-                  className='p-3 w-full outline-none border border-gray-300 focus:border-gray-500 rounded-sm focus:shadow-sm'
                 />
                 <div className='mt-2'>
                   <Button

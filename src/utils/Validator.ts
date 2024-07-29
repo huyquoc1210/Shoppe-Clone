@@ -1,4 +1,4 @@
-import { array, boolean, number, object, setLocale, string, type ObjectShape } from 'yup';
+import { array, boolean, number, object, setLocale, date, string, type ObjectShape } from 'yup';
 import RegExps from './RegExps';
 // import type { Dayjs } from 'dayjs';
 // import DateTime from './DateTime';
@@ -38,6 +38,20 @@ class Utils {
 
   public email() {
     return this.string().matches(RegExps.email, 'validator.email.invalid');
+  }
+
+  public phone() {
+    return string().max(20, 'Độ dài tối đa là 20 ký tự').trim().default('');
+  }
+
+  public birthday() {
+    return date()
+      .max(new Date(), 'Hãy chọn một ngày trong quá khứ')
+      .default(new Date(1970, 0, 1));
+  }
+
+  public avatar() {
+    return string().max(1000, 'Độ dài tối đa là 1000 ký tự').trim().default('');
   }
 
   // public dayjs() {

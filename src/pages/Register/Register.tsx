@@ -75,7 +75,11 @@ const Register = () => {
         login(data);
       },
       onError: (error) => {
-        if (axiosUnprocessableEntityError<HttpErrorResponse<Omit<FormData, 'confirm_password'>>>(error)) {
+        if (
+          axiosUnprocessableEntityError<HttpErrorResponse<Omit<FormData, 'confirm_password'>>>(
+            error
+          )
+        ) {
           const formError = error.response?.data.data;
           if (formError?.email) {
             form.setError('email', { message: formError.email, type: 'Server' });
@@ -96,23 +100,23 @@ const Register = () => {
             <div className='lg:col-span-2 lg:col-start-4'>
               <Form form={form} onSubmit={handleSubmit} className='rounded bg-white p-10 shadow-sm'>
                 <div className='text-2xl'>Đăng Ký</div>
-                <FormInput
+                <FormInput<FormData>
+                  className='mt-6'
                   name='email'
                   placeholder='Email'
                   type='email'
-                  className='p-3 w-full outline-none border border-gray-300 focus:border-gray-500 rounded-sm focus:shadow-sm'
                 />
-                <FormInput
+                <FormInput<FormData>
+                  className='mt-6'
                   name='password'
                   placeholder='Password'
                   type='password'
-                  className='p-3 w-full outline-none border border-gray-300 focus:border-gray-500 rounded-sm focus:shadow-sm'
                 />
-                <FormInput
+                <FormInput<FormData>
+                  className='mt-6'
                   name='confirm_password'
                   placeholder='ConfirmPassword'
                   type='password'
-                  className='p-3 w-full outline-none border border-gray-300 focus:border-gray-500 rounded-sm focus:shadow-sm'
                 />
                 <div className='mt-2'>
                   <Button

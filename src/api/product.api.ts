@@ -1,11 +1,13 @@
 import Endpoints from 'constants/endpoints';
 import type { HttpResponse } from 'types/http';
 import type { Product, ProductList, ProductListConfig } from 'types/product';
-import HttpClient from 'utils/HttpClient copy';
+import HttpClient from 'utils/HttpClient';
 
 // Get list Product
 export const getProducts = async (params: ProductListConfig) => {
-  return HttpClient.get<ProductListConfig, HttpResponse<ProductList>>(Endpoints.products, { params });
+  return HttpClient.get<ProductListConfig, HttpResponse<ProductList>>(Endpoints.products, {
+    params
+  });
 };
 
 // Get a Product

@@ -1,8 +1,12 @@
 import classNames from 'classnames';
 import Paths from 'constants/paths';
+import useAuth from 'hooks/useAuth';
 import { Link, NavLink } from 'react-router-dom';
+import { getAvatarUrl } from 'utils/utils';
 
 const UserSideNav = () => {
+  const { user } = useAuth();
+
   return (
     <div>
       <div className='flex items-center border-b border-b-gray-200 py-4'>
@@ -10,7 +14,7 @@ const UserSideNav = () => {
           to={Paths.user.profile.route}
           className='h-12 w-12 flex-shrink-0 overflow-hidden rounded-full border border-black/10'
         >
-          <img alt='' className='h-full w-full object-cover' />
+          <img src={getAvatarUrl(user?.avatar)} alt='' className='h-full w-full object-cover' />
         </Link>
         <div className='flex-grow pl-4'>
           <div className='mb-1 truncate font-semibold text-gray-600'></div>

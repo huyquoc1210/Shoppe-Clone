@@ -1,63 +1,115 @@
-// import axios, { AxiosError, HttpStatusCode, type AxiosInstance } from 'axios';
-// import config from 'config';
-// import { toast } from 'react-toastify';
-// import LocalStorage from './LocalStorage';
-// import type { HttpResponse } from 'types/http';
-// import type { Auth } from 'types/auth';
+import type { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
+import axios, { HttpStatusCode } from 'axios';
+import config from 'config';
+import { toast } from 'react-toastify';
+import LocalStorage from './LocalStorage';
 
-// class Axios {
-//   instance: AxiosInstance;
-//   // private accessToken: string;
-//   constructor() {
-//     // this.accessToken = LocalStorage.get('accessToken');
-//     this.instance = axios.create({
-//       baseURL: config.BASE_URL,
-//       // timeout: 1000,
-//       headers: { 'Content-Type': 'application/json' }
-//     });
+class Axios {
+  private instance: AxiosInstance;
 
-//     // this.instance.interceptors.request.use(
-//     //   // (config) => {
-//     //   //   if (this.accessToken) {
-//     //   //     config.headers.authorization = this.accessToken;
-//     //   //   } else {
-//     //   //     delete config.headers.authorization;
-//     //   //   }
-//     //   //   return config;
-//     //   // },
-//     //   // (error) => Promise.reject(error)
-//     //   (config) => {
-//     //     console.log(config);
-//     //     const accessToken = LocalStorage.get('accessToken');
-//     //     console.log(accessToken);
-//     //     if (accessToken) {
-//     //       config.headers.authorization = `${accessToken}`;
-//     //     } else {
-//     //       delete config.headers.authorization;
-//     //     }
-//     //     return config;
-//     //   },
-//     //   (error) => Promise.reject(error)
-//     // );
+  constructor() {
+    this.instance = axios.create({
+      baseURL: config.BASE_URL,
+      // timeout: 10 * 60 * 1000,
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
 
-//     this.instance.interceptors.response.use(
-//       (response) => {
-//         console.log(response);
-//         return response;
-//       },
+    this.instance.interceptors.request.use(
+      (config) => {
+        const accessToken = LocalStorage.get('accessToken');
+        if (accessToken) {
+          config.headers.authorization = `${accessToken}`;
+        } else {
+          delete config.headers.authorization;
+        }
+        return config;
+      },
+      (error) => Promise.reject(error)
+    );
 
-//       (error: AxiosError) => {
-//         if (error.response?.status !== HttpStatusCode.UnprocessableEntity) {
-//           const data: any | undefined = error.response?.data;
+    this.instance.interceptors.response.use(
+      (response) => {
+        // console.log(response);
+        return response;
+      },
+      (error: AxiosError) => {
+        if (error.response?.status !== HttpStatusCode.UnprocessableEntity) {
+          const data: any | undefined = error.response?.data;
+          console.log(data);
+          const message = data?.message || error.message;
 
-//           const message = data.message || error.message;
-//           toast.error(message);
-//         }
-//         return Promise.reject(error);
-//       }
-//     );
-//   }
-// }
+          toast.error(message);
+        }
+        return Promise.reject(error);
+      }
+    );
+  }
 
-// const HttpClient = new Axios().instance;
-// export default HttpClient;
+  // Read
+  public async get<T = any, R = T>(url: string, config?: AxiosRequestConfig): Promise<R> {
+    return new Promise((resolve, reject) => {
+      this.instance
+        .get<T, AxiosResponse<R>>(url, config)
+        .then((response) => resolve(response.data))
+        .catch((error) => reject(error.response?.data));
+    });
+  }
+
+  // Create
+  public async post<R = any>(url: string): Promise<R>;
+  public async post<D = any, R = any>(
+    url: string,
+    data: D,
+    config?: AxiosRequestConfig<D>
+  ): Promise<R>;
+  public async post<D = any, R = any>(
+    url: string,
+    data?: D,
+    config?: AxiosRequestConfig<D>
+  ): Promise<R> {
+    return new Promise((resolve, reject) => {
+      this.instance
+        .post<D, AxiosResponse<R>>(url, data, config)
+        .then((response) => resolve(response.data))
+        .catch((error) => reject(error));
+    });
+  }
+
+  // Update
+  public async put<D = any, R = any>(
+    url: string,
+    data?: D,
+    config?: AxiosRequestConfig<D>
+  ): Promise<R> {
+    return new Promise((resolve, reject) => {
+      this.instance
+        .put<D, AxiosResponse<R>>(url, data, config)
+        .then((response) => resolve(response.data))
+        .catch((error) => reject(error));
+    });
+  }
+
+  // Partial Update
+  public async patch<T>(
+    url: string,
+    data?: any,
+    config?: AxiosRequestConfig
+  ): Promise<AxiosResponse<T>> {
+    return this.instance.patch<T>(url, data, config);
+  }
+
+  // Delete
+  public async delete<T>(url: string, config?: AxiosRequestConfig): Promise<AxiosResponse<T>> {
+    return new Promise((resolve, reject) => {
+      this.instance
+        .delete<AxiosResponse<T>>(url, config)
+        .then((response) => resolve(response.data))
+        .catch((error) => reject(error.response?.data));
+    });
+  }
+}
+
+const HttpClient = new Axios();
+export default HttpClient;
