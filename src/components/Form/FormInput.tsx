@@ -29,10 +29,6 @@ const FormInput = <T extends FieldValues>(props: Props<T>) => {
     control
   });
 
-  const toggleEye = () => {
-    setOpenEye((prev) => !prev);
-  };
-
   const handleType = () => {
     if (rest.type === 'password') {
       return openEye ? 'text' : 'password';
@@ -40,14 +36,18 @@ const FormInput = <T extends FieldValues>(props: Props<T>) => {
     return rest.type;
   };
 
+  const toggleEye = () => {
+    setOpenEye((prev) => !prev);
+  };
+
   return (
     <div className={'relative ' + className}>
       <input
         className={classNameInput}
         placeholder={placeholder}
-        type={handleType()}
         {...others}
         {...rest}
+        type={handleType()}
       />
       {rest.type === 'password' && openEye && (
         <svg
