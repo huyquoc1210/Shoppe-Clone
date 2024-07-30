@@ -79,15 +79,14 @@ const HistoryPurchase = () => {
       <div className='overflow-x-auto'>
         <div className='min-w-[700px]'>
           <div className='sticky top-0 flex rounded-t-sm shadow-sm'>{purchaseTabsLink}</div>
-
           {purchasesCart && purchasesCart.length > 0 ? (
             <div>
-              {purchasesCart?.map((purchase) => {
+              {purchasesCart.map((purchase, index) => {
                 const { name, _id, image, price_before_discount, price } = purchase.product;
 
                 return (
                   <div
-                    key={_id}
+                    key={`${_id}-${index}`}
                     className='mt-4 rounded-sm border-black/10 bg-white p-6 text-gray-800 shadow-sm'
                   >
                     <Link
