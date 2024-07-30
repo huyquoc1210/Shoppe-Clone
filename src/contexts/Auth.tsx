@@ -82,7 +82,7 @@ const AuthProvider: FCC = (props) => {
       getProfile()
         .then((response) => {
           const { data } = response;
-          console.log(data);
+          // console.log(data);
           dispatch({ type: 'AUTHORIZED', payload: { user: data } });
         })
         .catch(() => {

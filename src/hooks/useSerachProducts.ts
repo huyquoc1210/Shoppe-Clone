@@ -38,6 +38,7 @@ const useSearchProducts = () => {
           ...queryConfig,
           name: data.search
         });
+
     navigate({
       pathname: Paths.index,
       search: createSearchParams(conFig).toString()

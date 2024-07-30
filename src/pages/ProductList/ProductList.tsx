@@ -23,7 +23,6 @@ const ProductList = () => {
   const { data: categoriesData } = useQuery({
     queryKey: ['categories'],
     queryFn: () => getCategories(),
-
     placeholderData: keepPreviousData
   });
 
@@ -34,10 +33,7 @@ const ProductList = () => {
           {productData && (
             <div className='grid grid-cols-12 gap-6'>
               <div className='col-span-3'>
-                <AsideFilter
-                  queryConfig={queryConfig}
-                  categories={categoriesData?.data || []}
-                />
+                <AsideFilter queryConfig={queryConfig} categories={categoriesData?.data || []} />
               </div>
               <div className='col-span-9'>
                 <SortProductList

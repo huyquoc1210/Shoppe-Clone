@@ -8,7 +8,6 @@ import Reload from './Reload';
 
 const RouterErrorBoundary = () => {
   const error = useRouteError();
-  console.log(error);
 
   if (!isRouteErrorResponse(error)) {
     throw error;

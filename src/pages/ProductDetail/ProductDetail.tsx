@@ -1,6 +1,7 @@
 import { keepPreviousData, useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { getProductDetail, getProducts } from 'api/product.api';
 import { addToCart, type PurchasesPayload } from 'api/purchase.api';
+import PageTitle from 'components/Pages/PageTitle';
 import ProductRating from 'components/ProductRating';
 import QuantityController from 'components/QuantityController';
 import Paths from 'constants/paths';
@@ -73,7 +74,6 @@ const ProductDetail = () => {
   const handleNext = () => {
     if (indexImage[1] < images.length) {
       setIndexImage((prev) => {
-        console.log(prev);
         return [prev[0] + 1, prev[1] + 1];
       });
     }
@@ -142,278 +142,278 @@ const ProductDetail = () => {
       });
     } catch (error) {
       console.log(error);
-    } finally {
-      console.log('done');
     }
   };
 
   return (
-    <div className='bg-gray-200 py-6'>
-      <div className='container'>
-        <div className='bg-white p-4 shadow'>
-          <div className='grid grid-cols-12 gap-9'>
-            <div className='col-span-5'>
-              <div
-                onMouseMove={handleZoom}
-                onMouseLeave={handleRemoveZoom}
-                className='relative w-full cursor-zoom-in overflow-hidden pt-[100%] shadow'
-              >
-                <img
-                  src={activeImage}
-                  alt={name}
-                  className='absolute pointer-events-none top-0 left-0 h-full w-full bg-white object-cover'
-                  ref={imageRef}
-                />
-              </div>
-              <div className='relative mt-4 grid grid-cols-5 gap-1'>
-                <button
-                  onClick={handlePrev}
-                  className='absolute left-0 top-1/2 z-10 h-9 w-5 -translate-y-1/2 bg-black/20 text-white'
+    <PageTitle title='Trang Chi tiết'>
+      <div className='bg-gray-200 py-6'>
+        <div className='container'>
+          <div className='bg-white p-4 shadow'>
+            <div className='grid grid-cols-12 gap-9'>
+              <div className='col-span-5'>
+                <div
+                  onMouseMove={handleZoom}
+                  onMouseLeave={handleRemoveZoom}
+                  className='relative w-full cursor-zoom-in overflow-hidden pt-[100%] shadow'
                 >
-                  <svg
-                    xmlns='http://www.w3.org/2000/svg'
-                    fill='none'
-                    viewBox='0 0 24 24'
-                    strokeWidth={1.5}
-                    stroke='currentColor'
-                    className='h-5 w-5'
-                  >
-                    <path
-                      strokeLinecap='round'
-                      strokeLinejoin='round'
-                      d='M15.75 19.5L8.25 12l7.5-7.5'
-                    />
-                  </svg>
-                </button>
-                {currentImages.map((img) => {
-                  const isActive = activeImage === img;
-                  return (
-                    <div
-                      className='relative w-full pt-[100%]'
-                      key={img}
-                      onMouseEnter={() => chooseActive(img)}
-                    >
-                      <img
-                        src={img}
-                        alt={name}
-                        className='absolute top-0 left-0 h-full w-full cursor-pointer bg-white object-cover'
-                      />
-                      {isActive && <div className='absolute inset-0 border-2 border-orange' />}
-                    </div>
-                  );
-                })}
-                <button
-                  onClick={handleNext}
-                  className='absolute right-0 top-1/2 z-10 h-9 w-5 -translate-y-1/2 bg-black/20 text-white'
-                >
-                  <svg
-                    xmlns='http://www.w3.org/2000/svg'
-                    fill='none'
-                    viewBox='0 0 24 24'
-                    strokeWidth={1.5}
-                    stroke='currentColor'
-                    className='h-5 w-5'
-                  >
-                    <path
-                      strokeLinecap='round'
-                      strokeLinejoin='round'
-                      d='M8.25 4.5l7.5 7.5-7.5 7.5'
-                    />
-                  </svg>
-                </button>
-              </div>
-            </div>
-            <div className='col-span-7'>
-              <h1 className='text-xl font-medium uppercase'>{name}</h1>
-              <div className='mt-8 flex items-center'>
-                <div className='flex items-center'>
-                  <span className='mr-1 border-b border-b-orange text-orange'>{rating}</span>
-                  <ProductRating
-                    rating={rating}
-                    activeClassname='fill-orange text-orange h-4 w-4'
-                    nonActiveClassname='fill-gray-300 text-gray-300 h-4 w-4'
+                  <img
+                    src={activeImage}
+                    alt={name}
+                    className='absolute pointer-events-none top-0 left-0 h-full w-full bg-white object-cover'
+                    ref={imageRef}
                   />
                 </div>
-                <div className='mx-4 h-4 w-[1px] bg-gray-300'></div>
-                <div>
-                  <span>{formatNumberToSocialStyle(sold)}</span>
-                  <span className='ml-1 text-gray-500'>Đã bán</span>
+                <div className='relative mt-4 grid grid-cols-5 gap-1'>
+                  <button
+                    onClick={handlePrev}
+                    className='absolute left-0 top-1/2 z-10 h-9 w-5 -translate-y-1/2 bg-black/20 text-white'
+                  >
+                    <svg
+                      xmlns='http://www.w3.org/2000/svg'
+                      fill='none'
+                      viewBox='0 0 24 24'
+                      strokeWidth={1.5}
+                      stroke='currentColor'
+                      className='h-5 w-5'
+                    >
+                      <path
+                        strokeLinecap='round'
+                        strokeLinejoin='round'
+                        d='M15.75 19.5L8.25 12l7.5-7.5'
+                      />
+                    </svg>
+                  </button>
+                  {currentImages.map((img) => {
+                    const isActive = activeImage === img;
+                    return (
+                      <div
+                        className='relative w-full pt-[100%]'
+                        key={img}
+                        onMouseEnter={() => chooseActive(img)}
+                      >
+                        <img
+                          src={img}
+                          alt={name}
+                          className='absolute top-0 left-0 h-full w-full cursor-pointer bg-white object-cover'
+                        />
+                        {isActive && <div className='absolute inset-0 border-2 border-orange' />}
+                      </div>
+                    );
+                  })}
+                  <button
+                    onClick={handleNext}
+                    className='absolute right-0 top-1/2 z-10 h-9 w-5 -translate-y-1/2 bg-black/20 text-white'
+                  >
+                    <svg
+                      xmlns='http://www.w3.org/2000/svg'
+                      fill='none'
+                      viewBox='0 0 24 24'
+                      strokeWidth={1.5}
+                      stroke='currentColor'
+                      className='h-5 w-5'
+                    >
+                      <path
+                        strokeLinecap='round'
+                        strokeLinejoin='round'
+                        d='M8.25 4.5l7.5 7.5-7.5 7.5'
+                      />
+                    </svg>
+                  </button>
                 </div>
               </div>
-              <div className='mt-8 flex items-center bg-gray-50 px-5 py-4'>
-                <div className='text-gray-500 line-through'>
-                  ₫{formatCurrency(price_before_discount)}
+              <div className='col-span-7'>
+                <h1 className='text-xl font-medium uppercase'>{name}</h1>
+                <div className='mt-8 flex items-center'>
+                  <div className='flex items-center'>
+                    <span className='mr-1 border-b border-b-orange text-orange'>{rating}</span>
+                    <ProductRating
+                      rating={rating}
+                      activeClassname='fill-orange text-orange h-4 w-4'
+                      nonActiveClassname='fill-gray-300 text-gray-300 h-4 w-4'
+                    />
+                  </div>
+                  <div className='mx-4 h-4 w-[1px] bg-gray-300'></div>
+                  <div>
+                    <span>{formatNumberToSocialStyle(sold)}</span>
+                    <span className='ml-1 text-gray-500'>Đã bán</span>
+                  </div>
                 </div>
-                <div className='ml-3 text-3xl font-medium text-orange'>
-                  ₫{formatCurrency(price)}
+                <div className='mt-8 flex items-center bg-gray-50 px-5 py-4'>
+                  <div className='text-gray-500 line-through'>
+                    ₫{formatCurrency(price_before_discount)}
+                  </div>
+                  <div className='ml-3 text-3xl font-medium text-orange'>
+                    ₫{formatCurrency(price)}
+                  </div>
+                  <div className='ml-4 rounded-sm bg-orange px-1 py-[2px] text-xs font-semibold uppercase text-white'>
+                    {rateSale(price_before_discount, price)} giảm
+                  </div>
                 </div>
-                <div className='ml-4 rounded-sm bg-orange px-1 py-[2px] text-xs font-semibold uppercase text-white'>
-                  {rateSale(price_before_discount, price)} giảm
+                <div className='mt-8 flex items-center'>
+                  <div className='capitalize text-gray-500'>Số lượng</div>
+                  <QuantityController
+                    onDecrease={handleBuyCount}
+                    onIncrease={handleBuyCount}
+                    onType={handleBuyCount}
+                    value={buyCount}
+                    max={quantity}
+                  />
+                  <div className='ml-6 text-sm text-gray-500'>{quantity} Sản phẩm có sẵn</div>
+                </div>
+                <div className='mt-8 flex items-center'>
+                  {!isAuthenticated && (
+                    <>
+                      <Link
+                        to={Paths.login.route}
+                        className='flex h-12 items-center justify-center rounded-sm border border-orange bg-orange/10 px-5 capitalize text-orange shadow-sm hover:bg-orange/5'
+                      >
+                        <svg
+                          enableBackground='new 0 0 15 15'
+                          viewBox='0 0 15 15'
+                          x={0}
+                          y={0}
+                          className='mr-[10px] h-5 w-5 fill-current stroke-orange text-orange'
+                        >
+                          <g>
+                            <g>
+                              <polyline
+                                fill='none'
+                                points='.5 .5 2.7 .5 5.2 11 12.4 11 14.5 3.5 3.7 3.5'
+                                strokeLinecap='round'
+                                strokeLinejoin='round'
+                                strokeMiterlimit={10}
+                              />
+                              <circle cx={6} cy='13.5' r={1} stroke='none' />
+                              <circle cx='11.5' cy='13.5' r={1} stroke='none' />
+                            </g>
+                            <line
+                              fill='none'
+                              strokeLinecap='round'
+                              strokeMiterlimit={10}
+                              x1='7.5'
+                              x2='10.5'
+                              y1={7}
+                              y2={7}
+                            />
+                            <line
+                              fill='none'
+                              strokeLinecap='round'
+                              strokeMiterlimit={10}
+                              x1={9}
+                              x2={9}
+                              y1='8.5'
+                              y2='5.5'
+                            />
+                          </g>
+                        </svg>
+                        Thêm vào giỏ hàng
+                      </Link>
+                      <Link
+                        to={Paths.login.route}
+                        className='flex ml-4 h-12 min-w-[5rem] items-center justify-center rounded-sm bg-orange px-5 capitalize text-white shadow-sm outline-none hover:bg-orange/90'
+                      >
+                        Mua ngay
+                      </Link>
+                    </>
+                  )}
+                  {isAuthenticated && (
+                    <>
+                      <button
+                        onClick={createToCart}
+                        className='flex h-12 items-center justify-center rounded-sm border border-orange bg-orange/10 px-5 capitalize text-orange shadow-sm hover:bg-orange/5'
+                      >
+                        <svg
+                          enableBackground='new 0 0 15 15'
+                          viewBox='0 0 15 15'
+                          x={0}
+                          y={0}
+                          className='mr-[10px] h-5 w-5 fill-current stroke-orange text-orange'
+                        >
+                          <g>
+                            <g>
+                              <polyline
+                                fill='none'
+                                points='.5 .5 2.7 .5 5.2 11 12.4 11 14.5 3.5 3.7 3.5'
+                                strokeLinecap='round'
+                                strokeLinejoin='round'
+                                strokeMiterlimit={10}
+                              />
+                              <circle cx={6} cy='13.5' r={1} stroke='none' />
+                              <circle cx='11.5' cy='13.5' r={1} stroke='none' />
+                            </g>
+                            <line
+                              fill='none'
+                              strokeLinecap='round'
+                              strokeMiterlimit={10}
+                              x1='7.5'
+                              x2='10.5'
+                              y1={7}
+                              y2={7}
+                            />
+                            <line
+                              fill='none'
+                              strokeLinecap='round'
+                              strokeMiterlimit={10}
+                              x1={9}
+                              x2={9}
+                              y1='8.5'
+                              y2='5.5'
+                            />
+                          </g>
+                        </svg>
+                        Thêm vào giỏ hàng
+                      </button>
+                      <button
+                        onClick={buyNow}
+                        className='flex ml-4 h-12 min-w-[5rem] items-center justify-center rounded-sm bg-orange px-5 capitalize text-white shadow-sm outline-none hover:bg-orange/90'
+                      >
+                        Mua ngay
+                      </button>
+                    </>
+                  )}
                 </div>
               </div>
-              <div className='mt-8 flex items-center'>
-                <div className='capitalize text-gray-500'>Số lượng</div>
-                <QuantityController
-                  onDecrease={handleBuyCount}
-                  onIncrease={handleBuyCount}
-                  onType={handleBuyCount}
-                  value={buyCount}
-                  max={quantity}
+            </div>
+          </div>
+        </div>
+        <div className='mt-8'>
+          <div className='container'>
+            <div className=' bg-white p-4 shadow'>
+              <div className='rounded bg-gray-50 p-4 text-lg capitalize text-slate-700'>
+                Mô tả sản phẩm
+              </div>
+              <div className='mx-4 mt-12 mb-4 text-sm leading-loose'>
+                <div
+                  dangerouslySetInnerHTML={{
+                    __html: DOMPurify.sanitize(description)
+                  }}
                 />
-                <div className='ml-6 text-sm text-gray-500'>{quantity} Sản phẩm có sẵn</div>
-              </div>
-              <div className='mt-8 flex items-center'>
-                {!isAuthenticated && (
-                  <>
-                    <Link
-                      to={Paths.login.route}
-                      className='flex h-12 items-center justify-center rounded-sm border border-orange bg-orange/10 px-5 capitalize text-orange shadow-sm hover:bg-orange/5'
-                    >
-                      <svg
-                        enableBackground='new 0 0 15 15'
-                        viewBox='0 0 15 15'
-                        x={0}
-                        y={0}
-                        className='mr-[10px] h-5 w-5 fill-current stroke-orange text-orange'
-                      >
-                        <g>
-                          <g>
-                            <polyline
-                              fill='none'
-                              points='.5 .5 2.7 .5 5.2 11 12.4 11 14.5 3.5 3.7 3.5'
-                              strokeLinecap='round'
-                              strokeLinejoin='round'
-                              strokeMiterlimit={10}
-                            />
-                            <circle cx={6} cy='13.5' r={1} stroke='none' />
-                            <circle cx='11.5' cy='13.5' r={1} stroke='none' />
-                          </g>
-                          <line
-                            fill='none'
-                            strokeLinecap='round'
-                            strokeMiterlimit={10}
-                            x1='7.5'
-                            x2='10.5'
-                            y1={7}
-                            y2={7}
-                          />
-                          <line
-                            fill='none'
-                            strokeLinecap='round'
-                            strokeMiterlimit={10}
-                            x1={9}
-                            x2={9}
-                            y1='8.5'
-                            y2='5.5'
-                          />
-                        </g>
-                      </svg>
-                      Thêm vào giỏ hàng
-                    </Link>
-                    <Link
-                      to={Paths.login.route}
-                      className='flex ml-4 h-12 min-w-[5rem] items-center justify-center rounded-sm bg-orange px-5 capitalize text-white shadow-sm outline-none hover:bg-orange/90'
-                    >
-                      Mua ngay
-                    </Link>
-                  </>
-                )}
-                {isAuthenticated && (
-                  <>
-                    <button
-                      onClick={createToCart}
-                      className='flex h-12 items-center justify-center rounded-sm border border-orange bg-orange/10 px-5 capitalize text-orange shadow-sm hover:bg-orange/5'
-                    >
-                      <svg
-                        enableBackground='new 0 0 15 15'
-                        viewBox='0 0 15 15'
-                        x={0}
-                        y={0}
-                        className='mr-[10px] h-5 w-5 fill-current stroke-orange text-orange'
-                      >
-                        <g>
-                          <g>
-                            <polyline
-                              fill='none'
-                              points='.5 .5 2.7 .5 5.2 11 12.4 11 14.5 3.5 3.7 3.5'
-                              strokeLinecap='round'
-                              strokeLinejoin='round'
-                              strokeMiterlimit={10}
-                            />
-                            <circle cx={6} cy='13.5' r={1} stroke='none' />
-                            <circle cx='11.5' cy='13.5' r={1} stroke='none' />
-                          </g>
-                          <line
-                            fill='none'
-                            strokeLinecap='round'
-                            strokeMiterlimit={10}
-                            x1='7.5'
-                            x2='10.5'
-                            y1={7}
-                            y2={7}
-                          />
-                          <line
-                            fill='none'
-                            strokeLinecap='round'
-                            strokeMiterlimit={10}
-                            x1={9}
-                            x2={9}
-                            y1='8.5'
-                            y2='5.5'
-                          />
-                        </g>
-                      </svg>
-                      Thêm vào giỏ hàng
-                    </button>
-                    <button
-                      onClick={buyNow}
-                      className='flex ml-4 h-12 min-w-[5rem] items-center justify-center rounded-sm bg-orange px-5 capitalize text-white shadow-sm outline-none hover:bg-orange/90'
-                    >
-                      Mua ngay
-                    </button>
-                  </>
-                )}
               </div>
             </div>
           </div>
         </div>
-      </div>
-      <div className='mt-8'>
-        <div className='container'>
-          <div className=' bg-white p-4 shadow'>
-            <div className='rounded bg-gray-50 p-4 text-lg capitalize text-slate-700'>
-              Mô tả sản phẩm
-            </div>
-            <div className='mx-4 mt-12 mb-4 text-sm leading-loose'>
-              <div
-                dangerouslySetInnerHTML={{
-                  __html: DOMPurify.sanitize(description)
-                }}
-              />
-            </div>
-          </div>
-        </div>
-      </div>
 
-      <div className='mt-8'>
-        <div className='container'>
-          <div className='uppercase text-gray-400'>CÓ THỂ BẠN CŨNG THÍCH</div>
-          {productData && (
-            <div className='mt-6 grid grid-cols-2 gap-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6'>
-              {productData.data.products.map((product) => {
-                if (product._id !== productDetail._id) {
-                  return (
-                    <div className='cols-span-1' key={product._id}>
-                      <Product product={product} />
-                    </div>
-                  );
-                }
-              })}
-            </div>
-          )}
+        <div className='mt-8'>
+          <div className='container'>
+            <div className='uppercase text-gray-400'>CÓ THỂ BẠN CŨNG THÍCH</div>
+            {productData && (
+              <div className='mt-6 grid grid-cols-2 gap-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6'>
+                {productData.data.products.map((product) => {
+                  if (product._id !== productDetail._id) {
+                    return (
+                      <div className='cols-span-1' key={product._id}>
+                        <Product product={product} />
+                      </div>
+                    );
+                  }
+                })}
+              </div>
+            )}
+          </div>
         </div>
       </div>
-    </div>
+    </PageTitle>
   );
 };
 

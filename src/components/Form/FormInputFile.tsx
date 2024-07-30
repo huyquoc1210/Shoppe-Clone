@@ -12,6 +12,7 @@ const FromInputFile = (props: FromInputFileProps) => {
 
   const onFileChange = (event: ChangeEvent<HTMLInputElement>) => {
     const fileFormLocal = event.target.files?.[0];
+
     if (
       fileFormLocal &&
       (fileFormLocal.size >= maxSizeUploadAvatar || !fileFormLocal.type.includes('image'))
@@ -22,6 +23,7 @@ const FromInputFile = (props: FromInputFileProps) => {
     } else {
       onChange && onChange(fileFormLocal);
     }
+
     event.target.value = '';
   };
 

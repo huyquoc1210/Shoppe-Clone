@@ -1,13 +1,13 @@
-import { useQuery } from '@tanstack/react-query';
-import { getPurchases } from 'api/purchase.api';
+import { useMutation, useQuery } from '@tanstack/react-query';
+import { addToCart, getPurchases, type PurchasesPayload } from 'api/purchase.api';
+import noPurchase from 'assets/images/no-purchase.png';
 import classNames from 'classnames';
 import Paths from 'constants/paths';
 import { purchasesStatus } from 'constants/purchaseStatus';
 import useQueryParams from 'hooks/useQueryParams';
-import { createSearchParams, Link } from 'react-router-dom';
+import { createSearchParams, Link, useNavigate } from 'react-router-dom';
 import type { PurchaseListStatus } from 'types/purchase';
 import { formatCurrency, generateNameId } from 'utils/utils';
-import noPurchase from 'assets/images/no-purchase.png';
 
 const purchaseTabs = [
   { status: purchasesStatus.all, name: 'Tất cả' },
@@ -21,15 +21,18 @@ const purchaseTabs = [
 const HistoryPurchase = () => {
   const queryParams: { status?: string } = useQueryParams(); //lấy status ở trên url
   const status: number = Number(queryParams.status) || purchasesStatus.all;
+  const navigate = useNavigate();
 
   const { data: purchasesCartData } = useQuery({
     queryKey: ['purchases', { status }],
     queryFn: () => getPurchases({ status: status as Exclude<PurchaseListStatus, -1> })
   });
 
-  const purchasesCart = purchasesCartData?.data || [];
+  const addToCartMutation = useMutation({
+    mutationFn: (payload: PurchasesPayload) => addToCart(payload)
+  });
 
-  console.log(purchasesCart.length);
+  const purchasesCart = purchasesCartData?.data || [];
 
   const purchaseTabsLink = purchaseTabs.map((tab) => (
     <Link
@@ -52,6 +55,25 @@ const HistoryPurchase = () => {
       {tab.name}
     </Link>
   ));
+
+  const buyNow = async (productId: string, buyCount: number) => {
+    try {
+      const res = await addToCartMutation.mutateAsync({
+        buy_count: buyCount,
+        product_id: productId
+      });
+      const purchase = res.data;
+      // console.log(purchase);
+      navigate(`/${Paths.cart.route}`, {
+        state: {
+          purchaseId: purchase._id
+        }
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className='rounded-sm bg-white px-2 pb-10 shadow md:px-7 md:pb-20'>
       <div className='overflow-x-auto'>
@@ -93,6 +115,14 @@ const HistoryPurchase = () => {
                           ₫{formatCurrency(price * purchase.buy_count)}
                         </span>
                       </div>
+                    </div>
+                    <div className='flex justify-end mt-3'>
+                      <button
+                        onClick={() => buyNow(_id, purchase.buy_count)}
+                        className='flex ml-4 h-10 min-w-[10rem] items-center justify-center rounded-sm bg-orange px-5 capitalize text-white shadow-sm outline-none hover:bg-orange/90'
+                      >
+                        Mua lại
+                      </button>
                     </div>
                   </div>
                 );

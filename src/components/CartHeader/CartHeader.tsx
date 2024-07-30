@@ -26,16 +26,9 @@ const CartHeader = () => {
                   </svg>
                 </div>
                 <div className='mx-4 h-6 w-[1px] bg-orange md:h-8'></div>
-                <div className='text-orange md:text-xl capitalize'>
-                  Giỏ hàng
-                </div>
+                <div className='text-orange md:text-xl capitalize'>Giỏ hàng</div>
               </Link>
-
-              <Form
-                form={form}
-                onSubmit={handleSubmit}
-                className='mt-3 md:mt-0 md:w-[50%]'
-              >
+              <Form form={form} onSubmit={handleSubmit} className='mt-3 md:mt-0 md:w-[50%]'>
                 <div className='flex rounded-sm border-orange border-2'>
                   <FormSearch<FormData>
                     type='text'

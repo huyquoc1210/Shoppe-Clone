@@ -26,7 +26,7 @@ const Header = () => {
   });
 
   const purchasesCart = purchasesCartData?.data;
-  console.log(purchasesCart);
+  // console.log(purchasesCart);
 
   // console.log('header');
 

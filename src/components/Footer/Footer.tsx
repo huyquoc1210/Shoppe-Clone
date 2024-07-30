@@ -61,9 +61,7 @@ const Footer = () => {
             </ul>
           </div>
           <div>
-            <h2 className='mb-6 text-sm font-semibold text-gray-900 uppercase '>
-              Về shopee
-            </h2>
+            <h2 className='mb-6 text-sm font-semibold text-gray-900 uppercase '>Về shopee</h2>
             <ul className='text-sm'>
               <li className='mb-4'>
                 <a href='#' className='hover:underline'>
@@ -113,9 +111,7 @@ const Footer = () => {
             </ul>
           </div>
           <div>
-            <h2 className='mb-6 text-sm font-semibold text-gray-900 uppercase '>
-              Thanh Toán
-            </h2>
+            <h2 className='mb-6 text-sm font-semibold text-gray-900 uppercase '>Thanh Toán</h2>
             <ul className=' font-medium flex flex-wrap gap-2 mb-5'>
               <li className='mb-4 bg-white p-2'>
                 <a target='_blank' rel='noopener noreferrer'>
@@ -306,63 +302,46 @@ const Footer = () => {
           </div>
           <div className='lg:col-span-2'>
             <div>
-              Quốc gia & Khu vực: Singapore Indonesia Đài Loan Thái Lan Malaysia
-              Việt Nam Philippines Brazil México Colombia Chile Poland
+              Quốc gia & Khu vực: Singapore Indonesia Đài Loan Thái Lan Malaysia Việt Nam
+              Philippines Brazil México Colombia Chile Poland
             </div>
           </div>
         </div>
-
         <div className='mt-10 text-center text-sm'>
           <div className='flex justify-center mb-9 uppercase text-sm gap-9'>
             <div className=''>
-              <a
-                className=''
-                href='https://help.shopee.vn/portal/article/77244'
-              >
+              <a className='' href='https://help.shopee.vn/portal/article/77244'>
                 <span>Chính sách bảo mật</span>
               </a>
             </div>
             <div className=''>
-              <a
-                className=''
-                href='https://help.shopee.vn/portal/article/77245'
-              >
+              <a className='' href='https://help.shopee.vn/portal/article/77245'>
                 <span>Quy chế hoạt động</span>
               </a>
             </div>
             <div className=''>
-              <a
-                className=''
-                href='https://help.shopee.vn/portal/article/77250'
-              >
+              <a className='' href='https://help.shopee.vn/portal/article/77250'>
                 <span>Chính sách vận chuyển</span>
               </a>
             </div>
             <div className=''>
-              <a
-                className=''
-                href='https://help.shopee.vn/portal/article/77251'
-              >
+              <a className='' href='https://help.shopee.vn/portal/article/77251'>
                 <span>CHÍNH SÁCH TRẢ HÀNG VÀ HOÀN TIỀN</span>
               </a>
             </div>
           </div>
           <div>Công ty TNHH Shopee</div>
           <div className='mt-6'>
-            Địa chỉ: Tầng 4-5-6, Tòa nhà Capital Place, số 29 đường Liễu Giai,
-            Phường Ngọc Khánh, Quận Ba Đình, Thành phố Hà Nội, Việt Nam. Tổng
-            đài hỗ trợ: 19001221 - Email: cskh@hotro.shopee.vn
+            Địa chỉ: Tầng 4-5-6, Tòa nhà Capital Place, số 29 đường Liễu Giai, Phường Ngọc Khánh,
+            Quận Ba Đình, Thành phố Hà Nội, Việt Nam. Tổng đài hỗ trợ: 19001221 - Email:
+            cskh@hotro.shopee.vn
           </div>
+          <div className='mt-2'>Chịu Trách Nhiệm Quản Lý Nội Dung: Nguyễn Bùi Anh Tuấn</div>
           <div className='mt-2'>
-            Chịu Trách Nhiệm Quản Lý Nội Dung: Nguyễn Bùi Anh Tuấn
+            Mã số doanh nghiệp: 0106773786 do Sở Kế hoạch & Đầu tư TP Hà Nội cấp lần đầu ngày
+            10/02/2015
           </div>
-          <div className='mt-2'>
-            Mã số doanh nghiệp: 0106773786 do Sở Kế hoạch & Đầu tư TP Hà Nội cấp
-            lần đầu ngày 10/02/2015
-          </div>
-          <div className='mt-2'>
-            © 2015 - Bản quyền thuộc về Công ty TNHH Shopee
-          </div>
+          <div className='mt-2'>© 2015 - Bản quyền thuộc về Công ty TNHH Shopee</div>
         </div>
       </div>
     </footer>
