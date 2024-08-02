@@ -1,9 +1,12 @@
-import Paths from 'constants/paths';
-import { Navigate, type RouteObject } from 'react-router-dom';
+import LazyRouter from 'components/Router/LazyRouter';
+import { lazy } from 'react';
+import { type RouteObject } from 'react-router-dom';
+
+const ProductList = LazyRouter(lazy(() => import('pages/ProductList')));
 
 const start: RouteObject = {
   index: true,
-  element: <Navigate to={Paths.user.profile.route} replace />
+  element: <ProductList />
 };
 
 export default start;
